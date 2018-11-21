@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7f00ff00"
+    tools:context=".MainActivity">
+
+    <mvpdemo.hd.net.ruler.RulerView
+        android:id="@+id/ruler1"
+        android:layout_width="26dp"
+        android:layout_height="match_parent"
+        android:background="#ffff00" />
+
+    <EditText
+        android:id="@+id/ratio"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:singleLine="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratio"
+        android:layout_alignLeft="@+id/ratio"
+        android:layout_alignRight="@id/ratio"
+        android:layout_marginTop="20dp"
+        android:onClick="setRatio"
+        android:text="OK" />
+
+    <mvpdemo.hd.net.ruler.RulerView
+        android:id="@+id/ruler2"
+        android:layout_width="26dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="15dp"
+        android:background="#ffff00"
+        app:direction="right" />
+
+</RelativeLayout>

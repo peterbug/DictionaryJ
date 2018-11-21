@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="@android:style/Theme.Light">
+        <!-- Customize your theme here. -->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <item name="android:windowActionBar">false</item>
+
+        <!-- Set AppCompat’s color theming attrs -->
+        <item name="android:colorPrimary">#445566</item>
+        <item name="android:colorPrimaryDark">#223344</item>
+    </style>
+
+</resources>
