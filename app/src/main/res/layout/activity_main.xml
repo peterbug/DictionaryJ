@@ -15,15 +15,28 @@
 
     <EditText
         android:id="@+id/ratio"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:inputType="numberDecimal"
+        android:singleLine="true"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/input_word"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="yes"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:inputType="text"
         android:singleLine="true" />
 
     <Button
+        android:id="@+id/setRatio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ratio"
@@ -32,6 +45,25 @@
         android:layout_marginTop="20dp"
         android:onClick="setRatio"
         android:text="OK" />
+
+    <Button
+        android:id="@+id/getFile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setRatio"
+        android:layout_alignLeft="@+id/ratio"
+        android:layout_alignRight="@id/ratio"
+        android:onClick="getFile"
+        android:text="Get mp3" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/getFile"
+        android:layout_alignLeft="@+id/ratio"
+        android:layout_alignRight="@id/ratio"
+        android:onClick="playMp3"
+        android:text="Play" />
 
     <mvpdemo.hd.net.ruler.RulerView
         android:id="@+id/ruler2"
