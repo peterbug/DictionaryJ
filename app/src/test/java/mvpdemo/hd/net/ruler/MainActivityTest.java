@@ -1,13 +1,13 @@
 package mvpdemo.hd.net.ruler;
 
-import android.app.Activity;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import mvpdemo.hd.net.ruler.UI.MainActivity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

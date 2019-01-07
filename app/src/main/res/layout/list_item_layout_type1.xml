@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical"
+    tools:context=".UI.MainActivity">
+    <!--public String spell;-->
+    <!--public String phoneti;-->
+    <!--public String meaning;-->
+    <!--public String groupIds;-->
+    <!--public Long strangeLevel;-->
+    <RelativeLayout
+        android:id="@+id/all_views"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="2dp">
+
+        <ImageView
+            android:id="@+id/selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/selected" />
+
+        <TextView
+            android:id="@+id/spell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/selected"
+            android:text="yes"
+            android:textColor="#ff000000"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/meaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/icons"
+            android:layout_toRightOf="@+id/spell"
+            android:layout_weight="10"
+            android:text="adv.是；\nn.是（表示肯定）\nv.对…说是]"
+            android:textColor="#ff000000"
+            android:textSize="14dp" />
+
+
+        <LinearLayout
+            android:id="@+id/icons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/sound_boy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:padding="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/sound_boy" />
+
+            <ImageView
+                android:id="@+id/sound_girl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:padding="5dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/sound_girl" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ff000000" />
+
+</LinearLayout>

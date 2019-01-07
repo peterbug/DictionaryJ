@@ -20,14 +20,19 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:recyclerview-v7:25.1.0"
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'org.jsoup:jsoup:1.9.2'
-    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'com.squareup:javapoet:1.7.0'
+//    compile files('libs/processors.jar')
+//    compile files('libs/annotation.jar')
+    compile project(path: ':greendao')
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.9.5"
     testCompile "org.robolectric:robolectric:3.1.4"
     testCompile "org.robolectric:robolectric-annotations:3.1.4"
+    annotationProcessor files('libs/processors.jar')
 //    testCompile 'com.android.support.test:runner:1.0.2'
 //    testCompile 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

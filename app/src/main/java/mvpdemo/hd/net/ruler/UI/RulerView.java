@@ -1,18 +1,18 @@
-package mvpdemo.hd.net.ruler;
+package mvpdemo.hd.net.ruler.UI;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+
+import mvpdemo.hd.net.ruler.R;
 
 public class RulerView extends View {
     static double YDPI;

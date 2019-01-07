@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <Button
+        android:id="@+id/setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:text="播放设置" />
+
+    <TextView
+        android:id="@+id/spell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/setting"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="yes"
+        android:textColor="#fa6526"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/meaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spell"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="adv.是的"
+        android:textSize="16dp" />
+
+    <android.support.v4.widget.Space
+        android:id="@+id/center_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_centerInParent="true"
+        android:background="#7f00ff00" />
+
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/center_line"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="暂停" />
+
+    <RelativeLayout
+        android:id="@+id/setting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffffff"
+        android:visibility="gone">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/setting_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/setting_list"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:text="返回" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
