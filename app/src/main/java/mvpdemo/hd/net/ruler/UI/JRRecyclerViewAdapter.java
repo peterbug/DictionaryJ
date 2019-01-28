@@ -27,7 +27,7 @@ public abstract class JRRecyclerViewAdapter extends Adapter {
         if (!sel) {
             returnValue[1] = selectedList.size() == getItemCount();
         }
-        triggleSelectedAllUI(returnValue[1]);
+        triggleSelectedAllUI(returnValue[1], selectedList.size(), getItemCount());
         notifyDataSetChanged();
         return returnValue;
     }
@@ -41,7 +41,7 @@ public abstract class JRRecyclerViewAdapter extends Adapter {
         } else {
             selectedList.clear();
         }
-        triggleSelectedAllUI(returnValue[1]);
+        triggleSelectedAllUI(returnValue[1], selectedList.size(), getItemCount());
         notifyDataSetChanged();
     }
 
@@ -54,7 +54,9 @@ public abstract class JRRecyclerViewAdapter extends Adapter {
     }
 
     /**
-     * @param isSelectAll [0]-current stated after user operation, returnValue[1]- true when all items are selected
+     * @param isSelectAll   [0]-current stated after user operation, returnValue[1]- true when all items are selected
+     * @param selectedCount
+     * @param allCount
      ***/
-    protected abstract void triggleSelectedAllUI(boolean isSelectAll);
+    protected abstract void triggleSelectedAllUI(boolean isSelectAll, long selectedCount, long allCount);
 }

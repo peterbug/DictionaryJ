@@ -131,8 +131,8 @@ public class GroupManageFragment extends Fragment {
                     for (Integer g : set) {
                         list.add(jrRecyclerAdapter.getData().get(g));
                         ids.add(jrRecyclerAdapter.getData().get(g).getId());
-                        title.insert(0,",");
-                        title.insert(0,jrRecyclerAdapter.getData().get(g).getName());
+                        title.insert(0, ",");
+                        title.insert(0, jrRecyclerAdapter.getData().get(g).getName());
                     }
 
                     if (list.size() == 0) {
@@ -242,8 +242,8 @@ public class GroupManageFragment extends Fragment {
         }
 
         @Override
-        protected void triggleSelectedAllUI(boolean isSelectAll) {
-            text_selected.setText(isSelectAll ? "全部取消" : "全部选中");
+        protected void triggleSelectedAllUI(boolean isSelectAll, long selectedCount, long allCount) {
+            text_selected.setText(isSelectAll ? "全部取消" : "全部选中" + "\n" + selectedCount + "/" + allCount);
             image_selected.setImageResource(isSelectAll ? R.drawable.selected : R.drawable.unselected);
         }
 

@@ -266,7 +266,7 @@ public class GroupPlayFragment extends Fragment {
         }
 
         @Override
-        protected void triggleSelectedAllUI(boolean isSelectAll) {
+        protected void triggleSelectedAllUI(boolean isSelectAll, long selectedCount, long allCount) {
 
         }
 
