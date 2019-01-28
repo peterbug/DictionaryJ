@@ -186,8 +186,44 @@ public class MainActivity extends Activity {
             }
         });
         group_name = (TextView) findViewById(R.id.group_name);
+//        save();
+    }
+    private void save() {
+        saveFileToDisk2(null, "0107---3", "M");
     }
 
+    private void saveFileToDisk2(final InputStream is, final String word, final String gender) {
+//        mHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+        //拿到字节流
+
+        int len = 0;
+        //设置下载图片存储路径和名称
+        String filePath = Environment.getExternalStorageDirectory() + "/a/" + word + "-" + gender + ".mp3";
+//        filePath = Environment.getExternalStorageDirectory() + "/a/" +   "words.txt";
+//        String filePath = Environment.getExternalStorageDirectory() + "/a/" + word + "-" + gender + ".mp3";
+        Log.e("XXX", this.getClass().getSimpleName() + " onResponse: " + filePath + " Thread:" + Thread.currentThread().getName());
+        File file = new File(filePath);
+        try {
+            if (!file.exists()) {
+//                file.createNewFile();
+
+//            filePath = Environment.getExternalStorageDirectory() + "/a/" + word + "-" + gender + ".mp3";
+//                String p = "android.permission.READ_EXTERNAL_STORAGE";
+                FileOutputStream fos = new FileOutputStream(filePath);
+                byte[] buf = new byte[128];
+                buf = "abcde".getBytes();
+                fos.write(buf, 0, len);
+                fos.flush();
+                fos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//            }
+//        });
+    }
 
     public void searchHistory(View v) {
 //        SharedPreferences.Editor editor = sp.edit();

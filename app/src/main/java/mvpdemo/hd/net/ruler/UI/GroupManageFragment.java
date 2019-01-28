@@ -36,7 +36,7 @@ public class GroupManageFragment extends Fragment {
     private TextView delete;
     private CharSequence title;
     JRRecyclerAdapter jrRecyclerAdapter;
-//    private boolean selected_all = false;
+    //    private boolean selected_all = false;
     View edit_layout;
     EditText group_name_edittext;
 
@@ -126,15 +126,24 @@ public class GroupManageFragment extends Fragment {
                 case R.id.preview_all_words: {
                     List<Groups> list = new ArrayList<>();
                     ArraySet<Integer> set = jrRecyclerAdapter.getSelectedPositionSet();
+                    List<Long> ids = new ArrayList<>();
+                    StringBuilder title = new StringBuilder();
                     for (Integer g : set) {
                         list.add(jrRecyclerAdapter.getData().get(g));
+                        ids.add(jrRecyclerAdapter.getData().get(g).getId());
+                        title.insert(0,",");
+                        title.insert(0,jrRecyclerAdapter.getData().get(g).getName());
                     }
+
                     if (list.size() == 0) {
                         Toast.makeText(getActivity(), "必须选择一个词库", LENGTH_SHORT).show();
                     } else {
                         AllWordsListFragment fragment = new AllWordsListFragment();
-                        fragment.setTitle(list.get(0).getName());
-                        fragment.setGroupId(list.get(0).getId());
+                        if (title.toString().endsWith(",")) {
+                            title.delete(title.length() - 1, title.length());
+                        }
+                        fragment.setTitle(title.toString());
+                        fragment.setGroupId(ids);
                         fragment.setDataType(AllWordsListFragment.JRRecyclerAdapter.TYPE_GROUP_MANAGE);
                         ((MainActivity) getActivity()).addFragment(fragment);
                     }
@@ -151,6 +160,10 @@ public class GroupManageFragment extends Fragment {
                 break;
                 case R.id.add:
                     edit_layout.setVisibility(View.VISIBLE);
+                    break;
+                case R.id.dic_export:
+                    break;
+                case R.id.dic_import:
                     break;
                 case R.id.back:
                     JRInputMethodUtils.hideSoftKeyboard(getActivity(), group_name_edittext);

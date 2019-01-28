@@ -2,6 +2,7 @@ package mvpdemo.hd.greendao;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.ArraySet;
 import android.util.Log;
 import android.widget.LinearLayout;
 
@@ -13,7 +14,11 @@ import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.Vector;
 
 import mvpdemo.hd.greendao.entity.Groups;
 import mvpdemo.hd.greendao.entity.Setting;
@@ -65,14 +70,27 @@ public class DbInit {
 //            }
 //        }
 //        return list;
-        ArrayList<WhereCondition> l = new ArrayList<>();
+        ArraySet<Long> filter = new ArraySet<>();
         for (Long gid : groups) {
             if (gid < 0) {
                 continue;
             }
-            qb.where(WordDao.Properties.GroupIds.like("%"+gid+"%"));
+            filter.add(gid);
         }
 
+        Queue<WhereCondition> q = new LinkedList<>();
+        Iterator<Long> iterator = filter.iterator();
+        while (iterator.hasNext()) {
+            Long gid = iterator.next();
+            q.add(WordDao.Properties.GroupIds.like("%" + gid + "%"));
+        }
+        WhereCondition result = q.poll(), w;
+        if (result != null) {
+            while ((w = q.poll()) != null) {
+                result = qb.or(w, result);
+            }
+            qb.where(result);
+        }
         return qb.list();
     }
 
@@ -99,7 +117,7 @@ public class DbInit {
         Database db = daoSession.getWordDao().getDatabase();
         Cursor c = null;
         try {
-            c = db.rawQuery(SQL_DISTINCT_ENAME, new String[]{"%s%","%o%"});
+            c = db.rawQuery(SQL_DISTINCT_ENAME, new String[]{"%s%", "%o%"});
         } catch (Exception e) {
             e.printStackTrace();
         }

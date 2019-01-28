@@ -37,7 +37,7 @@ public class AllWordsListFragment extends Fragment {
     private boolean selected_all = false;
     private int dataType = 0;
 
-    public long getGroupId() {
+    public List<Long> getGroupId() {
         return groupId;
     }
 
@@ -45,15 +45,15 @@ public class AllWordsListFragment extends Fragment {
         this.dataType = dataType;
     }
 
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
+    public void setGroupId(List<Long> groups) {
+        this.groupId = groups;
     }
 
     public void setTitle(CharSequence titleString) {
         title = titleString;
     }
 
-    private long groupId = -1;
+    private List<Long> groupId = new ArrayList<>();
 
     @Nullable
     @Override
