@@ -162,8 +162,10 @@ public class GroupManageFragment extends Fragment {
                     edit_layout.setVisibility(View.VISIBLE);
                     break;
                 case R.id.dic_export:
+                    Toast.makeText(getActivity(),"尚未完成",LENGTH_SHORT).show();
                     break;
                 case R.id.dic_import:
+                    Toast.makeText(getActivity(),"尚未完成",LENGTH_SHORT).show();
                     break;
                 case R.id.back:
                     JRInputMethodUtils.hideSoftKeyboard(getActivity(), group_name_edittext);

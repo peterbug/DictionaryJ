@@ -80,7 +80,7 @@ public class JRMediaPlayerHelper {
         mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                Log.e("XXX", this.getClass().getSimpleName() + " onPrepared: ");
+//                Log.e("XXX", this.getClass().getSimpleName() + " onPrepared: ");
                 mp.start();
             }
         });
@@ -88,6 +88,7 @@ public class JRMediaPlayerHelper {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 Log.e("XXX", this.getClass().getSimpleName() + " onError: what:" + what + " extra:" + extra);
+
                 File file = new File(playList.get(index % playList.size()));
                 if(file.exists()){
                     file.delete();
@@ -98,7 +99,7 @@ public class JRMediaPlayerHelper {
         onCompletionListener = new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(final MediaPlayer mp) {
-                Log.e("XXX", this.getClass().getSimpleName() + " mPlayer onCompletion: " + mp);
+//                Log.e("XXX", this.getClass().getSimpleName() + " mPlayer onCompletion: " + mp);
                 if (mp != null) {
                     mp.stop();
                 } else {
@@ -112,7 +113,7 @@ public class JRMediaPlayerHelper {
                     @Override
                     public void run() {
                         for (MediaPlayer.OnCompletionListener listener : completionListenerList) {
-                            Log.e("XXX", this.getClass().getSimpleName() + " onCompletion: " + listener);
+//                            Log.e("XXX", this.getClass().getSimpleName() + " onCompletion: " + listener);
                             listener.onCompletion(mp);
                         }
                     }

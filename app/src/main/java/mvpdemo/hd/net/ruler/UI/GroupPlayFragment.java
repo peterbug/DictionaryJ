@@ -33,7 +33,7 @@ import mvpdemo.hd.net.ruler.app.DicApplication;
 import mvpdemo.hd.net.ruler.business.ILIST_LISTENER;
 
 public class GroupPlayFragment extends Fragment {
-    private Button setting;
+    //    private Button setting;
     private TextView spell;
     private TextView meaning;
     private Button pause;
@@ -74,19 +74,24 @@ public class GroupPlayFragment extends Fragment {
         settingAdapter.setData(data);
         setting_layout = v.findViewById(R.id.setting_layout);
         setting_list.setAdapter(settingAdapter);
-        setting = (Button) v.findViewById(R.id.setting);
+
         spell = (TextView) v.findViewById(R.id.spell);
         meaning = (TextView) v.findViewById(R.id.meaning);
         spell.setVisibility(playSetting.displaySpell == Setting.ENABLE ? View.VISIBLE : View.INVISIBLE);
         meaning.setVisibility(playSetting.displayMeaning == Setting.ENABLE ? View.VISIBLE : View.INVISIBLE);
         pause = (Button) v.findViewById(R.id.pause);
+        Button setting = (Button) v.findViewById(R.id.setting);
+        setting.setOnClickListener(listener);
+        setting = (Button) v.findViewById(R.id.prev);
+        setting.setOnClickListener(listener);
+        setting = (Button) v.findViewById(R.id.next);
         setting.setOnClickListener(listener);
         v.findViewById(R.id.back).setOnClickListener(listener);
         pause.setOnClickListener(listener);
         JRMediaPlayerHelper.getInstance().addOnCompletionListener(mediaCompleteListener);
         mHandler.post(playMp3Runnalbe);
 
-        index = 0;
+        index = -1;
         isPause = false;
         return v;
     }
@@ -94,14 +99,22 @@ public class GroupPlayFragment extends Fragment {
     private Runnable playMp3Runnalbe = new Runnable() {
         @Override
         public void run() {
-            if (index + 1 == words.size()) {
-                generateRandomIndex();
+            index++;
+            if (playSetting.repeated == Setting.ENABLE) {
+                index += words.size();
+            } else if (index < 0 || index >= words.size()) {
+                index = 0;
             }
             index %= words.size();
             int rand = getRandomIndex(index);
             spell.setText(words.get(rand).spell);
             meaning.setText(words.get(rand).meaning);
+            Log.e("XXX", this.getClass().getSimpleName() + " run: " + spell.getText());
             JRMediaPlayerHelper.getInstance().startPlay(DicApplication.JRConfig.getSoundPath(true, words.get(rand).spell));
+            pauseState(false);
+            if (index + 1 == words.size()) {
+                generateRandomIndex();
+            }
         }
     };
 
@@ -109,15 +122,23 @@ public class GroupPlayFragment extends Fragment {
     MediaPlayer.OnCompletionListener mediaCompleteListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
-            index++;
-            if (playSetting.repeated == Setting.ENABLE) {
-                mHandler.postDelayed(playMp3Runnalbe, playSetting.getIntervals() * 1000 + 400);
+            if (playSetting.repeated == Setting.ENABLE || index < words.size() - 1) {
+                postNextPlay();
             } else {
-                isPause = true;
-                pause.setText("开始播放");
+                pauseState(true);
             }
         }
     };
+
+    private void pauseState(boolean pausse) {
+        isPause = pausse;
+        pause.setText(isPause ? "开始播放" : "暂停");
+    }
+
+    private void postNextPlay() {
+        mHandler.removeCallbacks(playMp3Runnalbe);
+        mHandler.postDelayed(playMp3Runnalbe, playSetting.getIntervals() * 1000 + 400);
+    }
 
     private int index = 0;
     private ArrayMap<Integer, Integer> randomIndexList = new ArrayMap<>();
@@ -148,6 +169,10 @@ public class GroupPlayFragment extends Fragment {
     }
 
     private int getRandomIndex(int index) {
+        Log.e("XXX", this.getClass().getSimpleName() + " getRandomIndex: " + index);
+        if (index < 0) {
+            index = randomIndexList.size() - 1;
+        }
         if (playSetting.random == Setting.ENABLE) {
             return randomIndexList.get(index);
         } else {
@@ -186,16 +211,22 @@ public class GroupPlayFragment extends Fragment {
                 case R.id.setting:
                     setting_layout.setVisibility(View.VISIBLE);
                     break;
+                case R.id.prev:
+                    index -= 2;
+                    mediaCompleteListener.onCompletion(null);
+                    mHandler.removeCallbacks(playMp3Runnalbe);
+                    playMp3Runnalbe.run();
+                    break;
+                case R.id.next:
+                    mediaCompleteListener.onCompletion(null);
+                    mHandler.removeCallbacks(playMp3Runnalbe);
+                    playMp3Runnalbe.run();
+                    break;
                 case R.id.pause:
-                    if (isPause) {
-                        isPause = false;
-                        pause.setText("暂停");
+                    pauseState(!isPause);
+                    if (!isPause) {
                         JRMediaPlayerHelper.getInstance().startPlay(DicApplication.JRConfig.getSoundPath(true, words.get(getRandomIndex(index % words.size())).spell));
                     } else {
-                        isPause = true;
-                        pause.setText("继续");
-                        index += words.size();
-                        index--;
                         mHandler.removeCallbacks(playMp3Runnalbe);
                         JRMediaPlayerHelper.getInstance().stopPlay();
                     }
