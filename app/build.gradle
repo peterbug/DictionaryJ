@@ -38,6 +38,7 @@ dependencies {
 //    compile files('libs/annotation.jar')
     compile project(path: ':greendao')
     compile 'com.getui:sdk:2.13.2.0'
+    compile project(path: ':Upload')
     compile project(path: ':utils')
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.9.5"

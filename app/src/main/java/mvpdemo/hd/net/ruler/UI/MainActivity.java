@@ -2,7 +2,6 @@ package mvpdemo.hd.net.ruler.UI;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,12 +12,12 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.util.ArraySet;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -34,6 +33,13 @@ import android.widget.Toast;
 
 import com.example.HelloWorld;
 import com.example.annotation.cls.JPHelloWorld;
+import com.fy.ruler.retrofit.LoadService;
+import com.fy.ruler.retrofit.RequestUtils;
+import com.fy.ruler.retrofit.up.LoadCallBack;
+import com.fy.ruler.retrofit.up.UploadOnSubscribe;
+import com.fy.ruler.utils.FileUpload;
+import com.fy.ruler.utils.L;
+import com.fy.ruler.utils.TransfmtUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -47,6 +53,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import mvpdemo.hd.greendao.DbInit;
 import mvpdemo.hd.greendao.entity.Word;
 import mvpdemo.hd.net.ruler.R;
@@ -62,7 +71,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import static android.widget.Toast.LENGTH_SHORT;
-import com.example.annotation.cls.*;
 
 @JPHelloWorld
 public class MainActivity extends Activity {
@@ -78,6 +86,7 @@ public class MainActivity extends Activity {
     AllWordsListFragment.JRRecyclerAdapter jrRecyclerAdapter;
     CheckBox default_to_diction;
     TextView group_name;
+    TextView tips;
     long defaultGroupId = -1;
 
     @Override
@@ -186,8 +195,10 @@ public class MainActivity extends Activity {
             }
         });
         group_name = (TextView) findViewById(R.id.group_name);
+        tips = (TextView) findViewById(R.id.tips);
 //        save();
     }
+
     private void save() {
         saveFileToDisk2(null, "0107---3", "M");
     }
@@ -254,7 +265,24 @@ public class MainActivity extends Activity {
         return false;
     }
 
+    private void upload() {
+        List<String> files = new ArrayList<>();
+//        files.add(TransfmtUtils.getSDCardPath() + "DCIM/Camera/679f6337gy1fr69ynfq3nj20hs0qodh0.jpg");
+//        files.add(TransfmtUtils.getSDCardPath() + "DCIM/IMG_20181108_144507.jpg");
+        files.add(TransfmtUtils.getSDCardPath() + "DCIM/abc.mp3");
+        files.add(TransfmtUtils.getSDCardPath() + "DCIM/abc.jpg");
+        File f = new File(TransfmtUtils.getSDCardPath() + "DCIM/abc.mp3");
+        L.e("IMG_0008:" + f.length() + " exist:" + f.exists() + " name:" + f.getName());
+//        files.add(TransfmtUtils.getSDCardPath() + "DCIM/Camera/RED,胡歌 - 逍遥叹（Cover 胡歌）.mp3");
+//        files.add(TransfmtUtils.getSDCardPath() + "DCIM/Camera/马郁 - 下辈子如果我还记得你.mp3");
+        FileUpload.uploadFiles(files, tips);
+    }
+
     public void getFile(View v) {
+        if (true) {
+            upload();
+            return;
+        }
         JRInputMethodUtils.hideSoftKeyboard(this, input_word);
         if (!isNetworkConnected(getApplicationContext())) {
             Toast.makeText(getApplicationContext(), "网络链接错误", LENGTH_SHORT).show();
